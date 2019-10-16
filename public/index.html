@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta charset="utf-8">
+   <title>Ejemplo de PWA</title>
+
+   <!-- Ícono para la página web. -->
+   <link rel="icon" sizes="32x32" href="https://png.pngtree.com/svg/20170425/panda_secretary_130823.png">
+
+   <!-- Color de la barra de navegación de Chrome. -->
+   <meta name="theme-color" content="#ffcb2d">
+
+   <!-- Configuración de la Web App Chrome y Microsoft Store. -->
+   <link rel="manifest" href="manifest.json">
+
+   <!-- Configuración para del acceso directo en Windows Edge/IE -->
+   <!-- Icono -->
+   <meta name="msapplication-TileImage" content="https://png.pngtree.com/svg/20170425/panda_secretary_130823.png">
+   <!-- Color de tile. -->
+   <meta name="msapplication-TileColor" content="#4fc3f7">
+
+   <!-- Configuración para Web Clip en Safari. -->
+   <meta name="mobile-web-app-capable" content="yes">
+   <link rel="apple-touch-icon" sizes="1024x1024" href="https://png.pngtree.com/svg/20170425/panda_secretary_130823.png">
+   <link rel="apple-touch-startup-image" sizes="1024x1024"
+     href="https://png.pngtree.com/svg/20170425/panda_secretary_130823.png">
+   <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="css/estilos.css">
+
+   <!-- update the version number as needed -->
+   <script defer src="/__/firebase/6.0.2/firebase-app.js"></script>
+   <!-- include only the Firebase features as you need -->
+   <script defer src="/__/firebase/6.0.2/firebase-auth.js"></script>
+   <script defer src="/__/firebase/6.0.2/firebase-firestore.js"></script>
+   <script defer src="/__/firebase/6.0.2/firebase-messaging.js"></script>
+   <script defer src="/__/firebase/6.0.2/firebase-storage.js"></script>
+   <!-- initialize the SDK after all desired features are loaded -->
+   <script defer src="/__/firebase/init.js"></script>
+
+ </head>
+ <body>
+   <form name="vista">
+     <header>
+       <h1>Progressive Web App YHLCM</h1>
+<p id="texto">utiliza las últimas tecnologías disponibles en los navegadores para ofrecer una experiencia en móviles lo más parecida a la de una aplicación nativa.</p>
+     </header>
+     <main role="main">
+       <p><output name="mensaje">Cargando Firebase SDK&hellip;</output></p>
+     </main>
+     <footer>Cuevas Martinez Yaheli IC51-M</footer>
+   </form>
+   <script>
+     /* Registra un service worker para instalar la aplicación en el
+      * caché del navegador. */
+     async function registraServiceWorker() {
+       if ("serviceWorker" in navigator) {
+         try {
+           const registro = await navigator.serviceWorker.register("sw.js");
+           console.log("Service Worker registrado.");
+           console.log(registro);
+         } catch (e) {
+           muestraError(e);
+         }
+       }
+     }
+
+     registraServiceWorker();
+     document.addEventListener('DOMContentLoaded', function () {
+       try {
+         let app = firebase.app();
+         let features = ['auth', 'database', 'messaging', 'storage']
+           .filter(feature => typeof app[feature] === 'function');
+         document.vista.mensaje.value =
+           `Firebase SDK cargó con: ${features.join(', ')}`;
+       } catch (e) {
+         console.log(e);
+         document.vista.mensaje.value =
+           'Error cargando Firebase SDK. Revisa la consola del navegador.';
+       }
+     });
+   </script>
+ </body>
+</html>

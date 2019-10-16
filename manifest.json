@@ -1,0 +1,15 @@
+{
+ "short_name": "yhlcmpwa",
+ "name": "Progressive Web App YHLCM",
+ "start_url": "/index.html",
+ "display": "standalone",
+ "background_color": "rgb(24, 94, 207)",
+ "theme_color": "rgb(25, 82, 173)",
+ "icons": [
+   {
+     "src": "https://png.pngtree.com/svg/20170425/panda_secretary_130823.png",
+     "sizes": "1024x1024",
+     "type": "image/png"
+   }
+ ]
+}
